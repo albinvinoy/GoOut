@@ -14,7 +14,7 @@ def home(request):
         request,
         'app/index.html',
         {
-            'title':'Home Page',
+            'title':'CPSC462 App',
             'year':datetime.now().year,
         }
     )
@@ -40,7 +40,7 @@ def about(request):
         'app/about.html',
         {
             'title':'About',
-            'message':'Your application description page.',
+            'message':'CPSC 462 App.',
             'year':datetime.now().year,
         }
     )

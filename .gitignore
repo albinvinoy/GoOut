@@ -3,3 +3,10 @@
 ################################################################################
 
 /GoOut/.vs/GoOut/v14
+/GoOut/bin
+/GoOut/GoOut/__pycache__
+/GoOut/obj/Debug
+/GoOut/app/migrations/__pycache__
+/GoOut/app/__pycache__
+/GoOut/web.debug.config
+/GoOut/web.config
