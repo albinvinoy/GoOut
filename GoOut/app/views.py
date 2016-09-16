@@ -27,7 +27,7 @@ def contact(request):
         'app/contact.html',
         {
             'title':'Contact',
-            'message':'Your contact page.',
+            'message':'Contact us to get an ad-free application for 30 days!!',
             'year':datetime.now().year,
         }
     )
