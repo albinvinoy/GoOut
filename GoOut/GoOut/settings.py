@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import configparser
+config = configparser.ConfigParser()
+config.read('settings.ini')
+config.sections()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '57333733-7ea7-4420-aaf8-f086e37f2741'
+SECRET_KEY = config['secrets']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,12 +82,12 @@ WSGI_APPLICATION = 'GoOut.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'go_out',
-        'USER': 'pythonapp',
-        'PASSWORD': 'cpsc462',
-        'HOST': '173.194.241.239',
-        'PORT': '3306',
+        'ENGINE': config['database']['DATABASE_ENGINE'],
+        'NAME': config['database']['DATABASE_NAME'],
+        'USER': config['database']['DATABASE_USER'],
+        'PASSWORD': config['database']['DATABASE_PASSWORD'],
+        'HOST': config['database']['DATABASE_HOST'],
+        'PORT': config['database']['DATABASE_PORT'],
     }
 }
 
