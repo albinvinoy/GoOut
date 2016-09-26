@@ -131,3 +131,5 @@ USE_TZ = True
 STATIC_URL = 'http://storage.googleapis.com/go-out/static/'
 
 STATIC_ROOT = 'static/'
+
+LOGIN_URL = 'login/'

@@ -26,3 +26,7 @@
 /GoOut/source-context.json
 /GoOut/static
 /GoOut/settings.ini
+*.DS_Store
+*.GoOut.pyproj
+/GoOut/.vs/config
+*.gitignore~
