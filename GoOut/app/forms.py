@@ -34,3 +34,13 @@ class RegistrationForm(forms.Form):
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
+
+class ProfileForm(forms.Form):
+    firstname = forms.CharField(max_length=100,
+                                widget=forms.TextInput({
+                                    'class':'form-control',
+                                    'placeholder':'First name'}))
+    lastname = forms.CharField(max_length=100,
+                                widget=forms.TextInput({
+                                    'class':'form-control',
+                                    'placeholder':'Last name'}))
