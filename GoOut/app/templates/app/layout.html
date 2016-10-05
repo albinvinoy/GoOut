@@ -19,14 +19,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Application name</a>
+                <a href="/" class="navbar-brand">Go Out</a>
             </div>
             <div class="navbar-collapse collapse">
+                {% if user.is_authenticated %}
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
+                {% endif %}
                 {% include 'app/loginpartial.html' %}
             </div>
         </div>

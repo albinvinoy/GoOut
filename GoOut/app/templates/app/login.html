@@ -2,41 +2,82 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
-<div class="row">
-    <div class="col-md-8">
+<div class="row login-page"> 
+    <div class="col-md-6">
         <section id="loginForm">
-            <form action="." method="post" class="form-horizontal">
+            <form action="../login/" method="post" class="form-horizontal">
                 {% csrf_token %}
-                <h4>Use account to log in.</h4>
+                <h3>{{ signin_title }}</h3>
                 <hr />
                 <div class="form-group">
-                    <label for="id_username" class="col-md-2 control-label">User name</label>
-                    <div class="col-md-10">
+                    <label for="id_email" class="col-md-3 control-label">Email address</label>
+                    <div class="col-md-9">
                         {{ form.username }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="id_password" class="col-md-2 control-label">Password</label>
-                    <div class="col-md-10">
+                    <label for="id_password" class="col-md-3 control-label">Password</label>
+                    <div class="col-md-9">
                         {{ form.password }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-3 col-md-9">
                         <input type="hidden" name="next" value="/" />
                         <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
                 {% if form.errors %}
-                <p class="validation-summary-errors">Please enter a correct user name and password.</p>
+                <p class="validation-summary-errors">Please enter a correct email and password.</p>
                 {% endif %}
             </form>
         </section>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm"></section>
+    <div class="col-md-6">
+        <section id="registrationForm">
+            <form action="../register/" method="post" class="form-horizontal">
+                {% csrf_token %}
+                <h3>{{ signup_title }}</h3>
+                <hr />
+                <div class="form-group">
+                    <label for="reg_firstname" class="col-md-3 control-label">First name</label>
+                    <div class="col-md-9">
+                        {{ signup_form.reg_firstname }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg_lastname" class="col-md-3 control-label">Last name</label>
+                    <div class="col-md-9">
+                        {{ signup_form.reg_lastname }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg_email" class="col-md-3 control-label">Email</label>
+                    <div class="col-md-9">
+                        {{ signup_form.reg_email }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg_password" class="col-md-3 control-label">Password</label>
+                    <div class="col-md-9">
+                        {{ signup_form.reg_password }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9">
+                        <input type="hidden" name="next" value="/" />
+                        <input type="submit" value="Sign Up" class="btn btn-default" />
+                    </div>
+                </div>
+                {% if signup_form.errors %}
+                <p class="validation-summary-errors">Please enter all required fields.</p>
+                {% endif %}
+            </form>
+        </section>
     </div>
+</div>
+<div class="row">
+    
 </div>
 
 {% endblock %}

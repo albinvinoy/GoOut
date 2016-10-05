@@ -128,6 +128,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = 'http://storage.googleapis.com/go-out/static/'
+#STATIC_URL = 'http://storage.googleapis.com/go-out/static/'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = 'static/'
+#STATIC_ROOT = 'static/'
+
+STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+
+LOGIN_URL = 'login/'
