@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.yaml" />
+    <Content Include="app\static\app\scripts\main.js" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />

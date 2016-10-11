@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import configparser
+import posixpath
 config = configparser.ConfigParser()
 config.read('settings.ini')
 config.sections()
@@ -29,7 +30,12 @@ SECRET_KEY = config['secrets']['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'http://go-out-144003.appspot.com/',
+    'https://go-out-144003.appspot.com/'
+]
 
 
 # Application definition
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -128,8 +135,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = 'http://storage.googleapis.com/go-out/static/'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = 'static/'
+STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 LOGIN_URL = 'login/'
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    }
+]
+
+GS_ACCESS_KEY_ID = config['google']['ID']
+GS_SECRET_ACCESS_KEY = config['google']['KEY']
+GS_BUCKET_NAME = 'go-out'
+if (not DEBUG):
+    DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
+    STATICFILES_STORAGE = 'storages.backends.gs.GSBotoStorage'

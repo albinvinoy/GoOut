@@ -70,7 +70,9 @@
                     </div>
                 </div>
                 {% if signup_form.errors %}
-                <p class="validation-summary-errors">Please enter all required fields.</p>
+                {% for key, value in signup_form.errors.items %}
+                <p class="validation-summary-errors">{{ value }}</p>
+                {% endfor %}
                 {% endif %}
             </form>
         </section>

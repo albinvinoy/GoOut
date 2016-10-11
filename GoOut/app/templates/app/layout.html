@@ -26,7 +26,6 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'profile' %}">Profile</a></li>
-                    <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
                 {% endif %}
                 {% include 'app/loginpartial.html' %}
@@ -45,6 +44,7 @@
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
+    <script src="{% static 'app/scripts/main.js' %}"></script>
 {% block scripts %}{% endblock %}
 
 </body>
