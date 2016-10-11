@@ -44,3 +44,10 @@ class ProfileForm(forms.Form):
                                 widget=forms.TextInput({
                                     'class':'form-control',
                                     'placeholder':'Last name'}))
+    bio = forms.CharField(max_length=500,
+                            widget=forms.Textarea({
+                                'class':'form-control',
+                                'placeholder':'500 Character Bio'}))
+
+class ProfilePicForm(forms.Form):
+    photo = forms.ImageField()

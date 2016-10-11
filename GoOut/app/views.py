@@ -10,7 +10,9 @@ from django.contrib.auth.views import login as login_view
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm
+from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm
+from app.models import UserInfo
+from app.utilities import getUserInfo
 
 @login_required
 def home(request):
@@ -28,19 +30,30 @@ def profile(request):
     """Renders the profile page."""
     assert isinstance(request, HttpRequest)
     form = ProfileForm(request.POST or None)
+    photoform = ProfilePicForm()
+    userInfo=getUserInfo(request.user)
+    photoUrl = userInfo.profilepic.url if bool(userInfo.profilepic) else ''
     if(request.method=='POST' and form.is_valid()):
         firstname=form.cleaned_data['firstname']
         lastname=form.cleaned_data['lastname']
+        bio=form.cleaned_data['bio']
         request.user.first_name=firstname
         request.user.last_name=lastname
         request.user.save()
-    form = ProfileForm(initial={'firstname':request.user.first_name, 'lastname':request.user.last_name})
+        userInfo.bio=bio
+        userInfo.save()
+    form = ProfileForm(initial={
+        'firstname':request.user.first_name, 
+        'lastname':request.user.last_name,
+        'bio':userInfo.bio
+    })
     return render(request,
         'app/profile.html',
         {
             'title':'Profile',
             'form':form,
-            'message':'CPSC 462 App.',
+            'photoform':photoform,
+            'photoUrl':photoUrl,
             'year':datetime.now().year,
         })
 
@@ -95,3 +108,28 @@ def register(request):
                 'form':BootstrapAuthenticationForm,
                 'signup_form':form
             })
+
+@login_required
+def profilepic(request):
+    """Handles profile photo update"""
+    assert isinstance(request, HttpRequest)
+    userInfo = getUserInfo(request.user)
+    form = ProfilePicForm(request.POST, request.FILES)
+    if (request.method=='POST' and form.is_valid()):
+        userInfo.profilepic=request.FILES['photo']
+        userInfo.save()
+    form = ProfileForm(initial={
+        'firstname':request.user.first_name, 
+        'lastname':request.user.last_name,
+        'bio':userInfo.bio
+    })
+    photoUrl = userInfo.profilepic.url if bool(userInfo.profilepic) else ''
+    return render(request,
+        'app/profile.html',
+        {
+            'title':'Profile',
+            'form':form,
+            'photoform':ProfilePicForm,
+            'photoUrl':photoUrl,
+            'year':datetime.now().year,
+        })

@@ -162,6 +162,6 @@ AUTH_PASSWORD_VALIDATORS = [
 GS_ACCESS_KEY_ID = config['google']['ID']
 GS_SECRET_ACCESS_KEY = config['google']['KEY']
 GS_BUCKET_NAME = 'go-out'
-if (not DEBUG):
-    DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
-    STATICFILES_STORAGE = 'storages.backends.gs.GSBotoStorage'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
+STATICFILES_STORAGE = 'storages.backends.gs.GSBotoStorage'

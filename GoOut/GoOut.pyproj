@@ -34,6 +34,9 @@
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\tests.py" />
+    <Compile Include="app\utilities.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
@@ -50,6 +53,7 @@
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
+    <Folder Include="app\static\app\images\" />
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
@@ -57,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.yaml" />
+    <Content Include="app\static\app\images\profile-pic-placeholder.gif" />
     <Content Include="app\static\app\scripts\main.js" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
