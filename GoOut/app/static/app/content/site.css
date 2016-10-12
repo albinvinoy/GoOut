@@ -40,3 +40,8 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.profile-pic {
+    max-height:300px;
+    max-width:300px;
+}

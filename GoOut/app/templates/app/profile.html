@@ -13,9 +13,9 @@
             <h3>Update Pic</h3>
             <hr />
             {% if photoUrl|length == 0 %}
-            <img id="imgProfilePhoto" src="{% static 'app/images/profile-pic-placeholder.gif' %}" />
+            <img id="imgProfilePhoto" class="profile-pic" src="{% static 'app/images/profile-pic-placeholder.gif' %}" />
             {% else %}
-            <img id="imgProfilePhoto" src="{{ photoUrl }}" />
+            <img id="imgProfilePhoto" class="profile-pic" src="{{ photoUrl }}" />
             {% endif %}
             {{ photoform.photo }}
             <input type="hidden" name="next" value="/" />
