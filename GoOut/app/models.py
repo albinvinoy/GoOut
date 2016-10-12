@@ -5,12 +5,14 @@ Definition of models.
 from django.db import models
 from django.contrib.auth.models import User
 from os.path import splitext
+import uuid
 
 def user_directory_path(instance, filename):
     return 'user/{0}/{1}'.format(instance.user.id,filename)
 
 def profilepic_path(instance, filename):
-    return 'user/{0}/profilepic{1}'.format(instance.user.id, splitext(filename)[1])
+    id=uuid.uuid4().urn[9:]
+    return 'user/{0}/profilepic-{1}{2}'.format(instance.user.id, id, splitext(filename)[1])
 
 # Create your models here.
 class UserInfo(models.Model):

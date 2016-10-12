@@ -116,6 +116,8 @@ def profilepic(request):
     userInfo = getUserInfo(request.user)
     form = ProfilePicForm(request.POST, request.FILES)
     if (request.method=='POST' and form.is_valid()):
+        if(userInfo.profilepic):
+            userInfo.profilepic.storage.delete(userInfo.profilepic.name)
         userInfo.profilepic=request.FILES['photo']
         userInfo.save()
     form = ProfileForm(initial={
