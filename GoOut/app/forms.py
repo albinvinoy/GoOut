@@ -36,6 +36,11 @@ class RegistrationForm(forms.Form):
                                    'placeholder':'Password'}))
 
 class ProfileForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        suggestedInterests=kwargs.pop('suggestedInterests')
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['interests'].choices=suggestedInterests if suggestedInterests is not None else []
+
     firstname = forms.CharField(max_length=100,
                                 widget=forms.TextInput({
                                     'class':'form-control',
@@ -48,6 +53,7 @@ class ProfileForm(forms.Form):
                             widget=forms.Textarea({
                                 'class':'form-control',
                                 'placeholder':'500 Character Bio'}))
+    interests=forms.MultipleChoiceField(choices=())
 
 class ProfilePicForm(forms.Form):
     photo = forms.ImageField()

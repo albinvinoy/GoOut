@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load staticfiles %}
+{% load userinfo %}
 
 <h2>{{ title }}</h2>
 
@@ -45,6 +46,12 @@
                 <label for="bio" class="col-md-3 control-label">Bio</label>
                 <div class="col-md-9">
                     {{ form.bio }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="interests" class="col-md-3 control-label">Interests</label>
+                <div class="col-md-9">
+                    {{ form.interests }}
                 </div>
             </div>
             <div class="form-group">

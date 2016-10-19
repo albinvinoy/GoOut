@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'app.templatetags',
 ]
 
 MIDDLEWARE_CLASSES = [

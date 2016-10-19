@@ -11,8 +11,8 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm
-from app.models import UserInfo
-from app.utilities import getUserInfo
+from app.models import Interest, UserInfo, UserInterest
+from app.utilities import getUserInfo, getUserInterestsAsIdList, getSuggestedInterestsAsListOfTuples
 
 @login_required
 def home(request):
@@ -29,7 +29,7 @@ def home(request):
 def profile(request):
     """Renders the profile page."""
     assert isinstance(request, HttpRequest)
-    form = ProfileForm(request.POST or None)
+    form = ProfileForm(request.POST or None, suggestedInterests=getSuggestedInterestsAsListOfTuples(request.user))
     photoform = ProfilePicForm()
     userInfo=getUserInfo(request.user)
     photoUrl = userInfo.profilepic.url if bool(userInfo.profilepic) else ''
@@ -37,15 +37,23 @@ def profile(request):
         firstname=form.cleaned_data['firstname']
         lastname=form.cleaned_data['lastname']
         bio=form.cleaned_data['bio']
+        interests=form.cleaned_data['interests']
         request.user.first_name=firstname
         request.user.last_name=lastname
         request.user.save()
+        UserInterest.objects.filter(user=userInfo).delete()
+        for interestID in interests:
+            interestModel=Interest.objects.get(id=interestID)
+            userInterest=UserInterest(user=userInfo, interest=interestModel, priority=1)
+            userInterest.save()
         userInfo.bio=bio
         userInfo.save()
-    form = ProfileForm(initial={
+    form = ProfileForm(suggestedInterests=getSuggestedInterestsAsListOfTuples(request.user),
+    initial={
         'firstname':request.user.first_name, 
         'lastname':request.user.last_name,
-        'bio':userInfo.bio
+        'bio':userInfo.bio,
+        'interests':getUserInterestsAsIdList(request.user)
     })
     return render(request,
         'app/profile.html',

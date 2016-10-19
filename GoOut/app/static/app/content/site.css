@@ -45,3 +45,12 @@ input[type="checkbox"].input-validation-error {
     max-height:300px;
     max-width:300px;
 }
+
+.profile-icon {
+    max-height:40px;
+    max-width:40px;
+}
+
+.navbar-icon {
+    padding:5px 5px;
+}

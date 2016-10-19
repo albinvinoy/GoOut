@@ -1,7 +1,9 @@
 {% if user.is_authenticated %}
+{% load userinfo %}
 <form id="logoutForm" action="/logout" method="post" class="navbar-right">
     {% csrf_token %}
     <ul class="nav navbar-nav navbar-right">
+        <li><span class="navbar-brand navbar-icon"><img class="profile-icon" src="{% user_icon_url user %}" /></span></li>
         <li><span class="navbar-brand">Hello {{ user.first_name }}!</span></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
