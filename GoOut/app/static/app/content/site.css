@@ -53,3 +53,15 @@ input[type="checkbox"].input-validation-error {
     height:280px;
     width:100%;
 }
+
+/* Style for navbar location */
+.navbar-location {
+    color:#fff;
+    font-size:20px;
+    line-height:20px;
+    padding:15px 15px;
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+}
