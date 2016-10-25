@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.google_maps_key'
             ],
         },
     },
@@ -163,6 +164,8 @@ AUTH_PASSWORD_VALIDATORS = [
 GS_ACCESS_KEY_ID = config['google']['ID']
 GS_SECRET_ACCESS_KEY = config['google']['KEY']
 GS_BUCKET_NAME = 'go-out'
+GS_MAPS_KEY = config['google']['MAPS_API_KEY']
+GS_SERVER_KEY = config['google']['SERVER_KEY']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
 STATICFILES_STORAGE = 'storages.backends.gs.GSBotoStorage'
