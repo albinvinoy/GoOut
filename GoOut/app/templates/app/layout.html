@@ -45,6 +45,18 @@
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
     <script src="{% static 'app/scripts/main.js' %}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap"></script>
+    {% if request.session.location %}
+    <script>
+        var curr_loc = {
+            'city':'{{ request.session.location.city }}',
+            'state':'{{ request.session.location.state }}',
+            'country':'{{ request.session.location.country }}',
+            'lat':{{ request.session.location.lat }},
+            'lng':{{ request.session.location.lng }}
+        }
+    </script>
+    {% endif %}
 {% block scripts %}{% endblock %}
 
 </body>

@@ -31,7 +31,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\context_processors.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py" />
+    <Compile Include="app\maps.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\models.py" />
     <Compile Include="app\templatetags\userinfo.py">
       <SubType>Code</SubType>

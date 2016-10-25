@@ -35,6 +35,12 @@ class RegistrationForm(forms.Form):
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
 
+class LocationForm(forms.Form):
+    location = forms.CharField(max_length=500,
+                                widget=forms.TextInput({
+                                    'class':'form-control',
+                                    'placeholder':'City, State'}))
+
 class ProfileForm(forms.Form):
     def __init__(self, *args, **kwargs):
         suggestedInterests=kwargs.pop('suggestedInterests')

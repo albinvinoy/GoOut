@@ -10,19 +10,29 @@ from django.contrib.auth.views import login as login_view
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm
+from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm, LocationForm
 from app.models import Interest, UserInfo, UserInterest
 from app.utilities import getUserInfo, getUserInterestsAsIdList, getSuggestedInterestsAsListOfTuples
+from app.maps import getLocationFromString
 
 @login_required
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+    form = LocationForm(request.POST or None)
+    if(request.method=='POST' and form.is_valid()):
+        location = getLocationFromString(form.cleaned_data['location'])
+        request.session['location'] = location
+        form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+    elif ('location' in request.session):
+        location = request.session['location']
+        form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
     return render(request,
         'app/index.html',
         {
             'title':'CPSC462 App',
             'year':datetime.now().year,
+            'form':form
         })
 
 @login_required
