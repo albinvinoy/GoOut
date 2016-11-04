@@ -76,6 +76,8 @@
     <Content Include="app.yaml" />
     <Content Include="app\static\app\images\profile-pic-placeholder.gif" />
     <Content Include="app\static\app\scripts\main.js" />
+    <Content Include="app\templates\app\location-initial.html" />
+    <Content Include="app\templates\app\location-set.html" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />

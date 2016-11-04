@@ -1,0 +1,23 @@
+﻿<div class="col-md-12">
+    <section id="locationForm">
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        <h1>Connect with people in your area.</h1>
+        <h3>Start by setting your location:</h3>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-6">
+                {{ form.location }}
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="form-control btn-default" id="btnGetCurrentLocation">Get Current Location</button>
+            </div>
+            <div class="col-md-3">
+                <input type="hidden" name="next" value="/" />
+                <button type="submit" class="form-control btn-default" id="btnSetLocation">Set Location</button>
+            </div>
+        </div>
+    </form>
+    </section>
+    <div id="map"></div>
+</div>

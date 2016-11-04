@@ -1,0 +1,28 @@
+﻿<div class="row" id="locationPopover">
+    <div class="col-md-6">
+        <div id="map" class="location-set"></div>
+    </div>
+    <div class="col-md-6">
+        <section id="locationForm">
+        <form action="../location/" method="post" class="form-horizontal">
+            {% csrf_token %}
+            <div class="form-group padding-right">
+                <div class="row location-set-center">
+                    <div class="col-md-12">
+                        {{ FORM_LOCATION.location }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="form-control btn-default" id="btnGetCurrentLocation">Get Current Location</button>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="hidden" name="next" value="/" />
+                        <button type="submit" class="form-control btn-default" id="btnSetLocation">Set Location</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </section>
+    </div>
+</div>

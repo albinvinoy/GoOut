@@ -30,7 +30,7 @@ def home(request):
     return render(request,
         'app/index.html',
         {
-            'title':'CPSC462 App',
+            'title':'Go Out',
             'year':datetime.now().year,
             'form':form
         })
@@ -72,17 +72,6 @@ def profile(request):
             'form':form,
             'photoform':photoform,
             'photoUrl':photoUrl,
-            'year':datetime.now().year,
-        })
-
-def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(request,
-        'app/contact.html',
-        {
-            'title':'Contact',
-            'message':'Contact us to get an ad-free application for 30 days!!',
             'year':datetime.now().year,
         })
 
@@ -138,10 +127,12 @@ def profilepic(request):
             userInfo.profilepic.storage.delete(userInfo.profilepic.name)
         userInfo.profilepic=request.FILES['photo']
         userInfo.save()
-    form = ProfileForm(initial={
+    form = ProfileForm(suggestedInterests=getSuggestedInterestsAsListOfTuples(request.user),
+    initial={
         'firstname':request.user.first_name, 
         'lastname':request.user.last_name,
-        'bio':userInfo.bio
+        'bio':userInfo.bio,
+        'interests':getUserInterestsAsIdList(request.user)
     })
     photoUrl = userInfo.profilepic.url if bool(userInfo.profilepic) else ''
     return render(request,
@@ -153,3 +144,14 @@ def profilepic(request):
             'photoUrl':photoUrl,
             'year':datetime.now().year,
         })
+
+@login_required
+def location(request):
+    """Handles location update"""
+    assert isinstance(request, HttpRequest)
+    form = LocationForm(request.POST or None)
+    if (request.method == 'POST' and form.is_valid()):
+        location = getLocationFromString(form.cleaned_data['location'])
+        request.session['location'] = location
+    next = request.POST.get('next','/')
+    return HttpResponseRedirect(next)

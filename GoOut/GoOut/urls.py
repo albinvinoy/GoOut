@@ -17,10 +17,10 @@ import app.views
 urlpatterns = [
     # Examples:
     url(r'^$', app.views.home, name='home'),
-    url(r'^contact$', app.views.contact, name='contact'),
     url(r'^profilepic/$', app.views.profilepic, name='profilepic'),
     url(r'^profile', app.views.profile, name='profile'),
     url(r'^register/$', app.views.register, name='register'),
+    url(r'^location', app.views.location, name='location'),
     url(r'^login/$', app.views.user_login, name='login'),
     url(r'^logout$',
         django.contrib.auth.views.logout,

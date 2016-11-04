@@ -53,8 +53,11 @@ input[type="checkbox"].input-validation-error {
     height:280px;
     width:100%;
 }
+#map.location-set {
+    height:170px;
+}
 
-/* Style for navbar location */
+/* Style for navbar elements*/
 .navbar-location {
     color:#fff;
     font-size:20px;
@@ -64,4 +67,26 @@ input[type="checkbox"].input-validation-error {
     top:0;
     left:50%;
     transform:translateX(-50%);
+}
+#userLocationLnk {
+    padding:0;
+}
+.popover {
+    max-width:none;
+    width:700px;
+}
+.popover-title{
+    color:#333;
+    text-align:center;
+}
+.location-set-center {
+    padding:40px 0 10px 0;
+}
+
+/* Style for common site elements */
+.jumbotron {
+    padding-top:0;
+}
+.padding-right{
+    padding-right:5px;
 }

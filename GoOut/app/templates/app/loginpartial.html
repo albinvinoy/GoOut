@@ -2,8 +2,13 @@
 {% load userinfo %}
 {% if request.session.location %}
 <ul class="nav navbar-nav navbar-location">
-    <li>{{ request.session.location.city }}, {{ request.session.location.state }}</li>
+    <li>
+        <a href="#" id="userLocationLnk">{{ request.session.location.city }}, {{ request.session.location.state }}</a>
+    </li>
 </ul>
+<script id="locationPopoverContent" type="text/template">
+    {% include "app/location-set.html" %}
+</script>
 {% endif %}
 <form id="logoutForm" action="/logout" method="post" class="navbar-right">
     {% csrf_token %}

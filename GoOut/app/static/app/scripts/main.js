@@ -67,3 +67,16 @@ function initMap() {
         });
     }
 }
+
+$(function () {
+    $('#userLocationLnk').popover({
+        html: true,
+        content: function () {
+            return $('#locationPopoverContent').html();
+        },
+        placement: 'bottom',
+        title: function () {
+            return '<h3>Set Location</h3>';
+        }
+    }).click(initMap);
+});

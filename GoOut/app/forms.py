@@ -43,7 +43,9 @@ class LocationForm(forms.Form):
 
 class ProfileForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        suggestedInterests=kwargs.pop('suggestedInterests')
+        suggestedInterests = None
+        if ('suggestedInterests' in kwargs):
+            suggestedInterests=kwargs.pop('suggestedInterests')
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields['interests'].choices=suggestedInterests if suggestedInterests is not None else []
 
