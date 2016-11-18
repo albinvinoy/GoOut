@@ -1,6 +1,6 @@
 #------------------------API Key
-05df6955e82bd36ed52418517ea60b7b
-https://api.themoviedb.org/3/movie/550?api_key=05df6955e82bd36ed52418517ea60b7b #Example of api request
+
+https://api.themoviedb.org/3/movie/550?api_key= #Example of api request
 
 #--------- retrieve Movie Genres----
 #This will return an array of all movie genres with specific ID assigned to each genre.
@@ -14,7 +14,7 @@ payload = "{}"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("GET", "/3/genre/movie/list?language=en-US&api_key=05df6955e82bd36ed52418517ea60b7b", payload, headers)
+conn.request("GET", "/3/genre/movie/list?language=en-US&api_key=", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
