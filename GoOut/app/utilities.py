@@ -46,22 +46,3 @@ def getInterestsAndSubInterests(user):
     interests = getSuggestedInterests(user)
     interestsList = list(map((lambda interest: (interest['name'], (getSubinterestTuplesFromInterestID(interest['id'])))),interests))
     return interestsList
-
-def generateNewsfeed(userInterests):
-    for userInterest in userInterests:
-        if (userInterest.interest.id==1): # Movies
-            # subinterest = movie genres
-            for subinterest in userInterest.interest.subinterests:
-                x = 5 # filler, delete soon
-        elif (userInterest.interest.id==2): # Music
-            # subinterest = music genres
-            for subinterest in userInterest.interest.subinterests:
-                x=5
-        elif (userInterest.interest.id==3): # Craft Beer
-            # subinterest = beer type
-            for subinterest in userInterest.interest.subinterest:
-                x=5
-        elif (userInterest.interest.id==4): # Cars
-            # subinterest = car brand
-            for subinterest in userInterest.interest.subinterest:
-                x=5

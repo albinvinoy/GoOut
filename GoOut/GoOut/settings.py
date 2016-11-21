@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'app.templatetags',
+    'app.apis'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -167,6 +168,8 @@ GS_SECRET_ACCESS_KEY = config['google']['KEY']
 GS_BUCKET_NAME = 'go-out'
 GS_MAPS_KEY = config['google']['MAPS_API_KEY']
 GS_SERVER_KEY = config['google']['SERVER_KEY']
+
+MOVIE_API_KEY = config['interest_apis']['MOVIES_KEY']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
 STATICFILES_STORAGE = 'storages.backends.gs.GSBotoStorage'

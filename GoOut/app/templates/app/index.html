@@ -5,6 +5,7 @@
 <div class="jumbotron">
     <div class="row">
     {% if request.session.location %}
+        {% include "app/newsfeed.html" with newsfeed=newsfeed%}
     {% else %}
         {% include "app/location-initial.html" with form=form %}
     {% endif %}

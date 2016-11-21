@@ -30,3 +30,4 @@
 *.GoOut.pyproj
 /GoOut/.vs/config
 *.gitignore~
+*.py~

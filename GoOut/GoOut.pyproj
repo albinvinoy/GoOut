@@ -31,6 +31,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\apis\movies.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\apis\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\context_processors.py">
       <SubType>Code</SubType>
     </Compile>
@@ -39,6 +45,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\models.py" />
+    <Compile Include="app\newsfeed.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\templatetags\userinfo.py">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +70,8 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
+    <Folder Include="app\apis\" />
+    <Folder Include="app\templates\article\" />
     <Folder Include="app\templatetags\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
@@ -78,6 +89,21 @@
     <Content Include="app\static\app\scripts\main.js" />
     <Content Include="app\templates\app\location-initial.html" />
     <Content Include="app\templates\app\location-set.html" />
+    <Content Include="app\templates\app\newsfeed.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\templates\article\beer.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\templates\article\car.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\templates\article\movie.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\templates\article\music.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />

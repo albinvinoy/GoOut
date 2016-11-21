@@ -1,0 +1,15 @@
+<div class="col-md-12">
+    <section id="newsfeed">
+        {% for article in newsfeed %}
+            {% if article.interest == 'Movies' %}
+                {% include "article/movie.html" with movie=article %}
+            {% elif article.interest == 'Music' %}
+                {% include "article/music.html" with music=article %}
+            {% elif article.interest == 'Cars' %}
+                {% include "article/car.html" with car=article %}
+            {% elif article.interest == 'Craft Beer' %}
+                {% include "article/beer.html" with beer=article %}
+            {% endif %}
+        {% endfor %}
+    </section>
+</div>
