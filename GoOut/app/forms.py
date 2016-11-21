@@ -4,6 +4,7 @@ Definition of forms.
 
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.forms import BaseFormSet
 from django.utils.translation import ugettext_lazy as _
 
 class BootstrapAuthenticationForm(AuthenticationForm):
@@ -61,7 +62,23 @@ class ProfileForm(forms.Form):
                             widget=forms.Textarea({
                                 'class':'form-control',
                                 'placeholder':'500 Character Bio'}))
-    interests=forms.MultipleChoiceField(choices=())
+    interests=forms.MultipleChoiceField(choices=(),
+                            widget=forms.CheckboxSelectMultiple({
+                                'class':'form-control'
+                            }))
 
 class ProfilePicForm(forms.Form):
     photo = forms.ImageField()
+
+class SubinterestSelectionForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        suggested_subinterests = None
+        if ('subinterests' in kwargs):
+            suggested_subinterests=kwargs.pop('subinterests')
+        super(SubinterestSelectionForm, self).__init__(*args, **kwargs)
+        self.fields['subinterests'].choices=suggested_subinterests if suggested_subinterests is not None else []
+
+    subinterests=forms.MultipleChoiceField(choices=(),
+                            widget=forms.CheckboxSelectMultiple({
+                                'class':'form-control'
+                            }))

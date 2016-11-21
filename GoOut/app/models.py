@@ -18,6 +18,11 @@ def profilepic_path(instance, filename):
 class Interest(models.Model):
     name=models.CharField(max_length=100)
 
+class Subinterest(models.Model):
+    interest = models.ForeignKey(Interest)
+
+    name=models.CharField(max_length=100)
+
 class UserInfo(models.Model):
     user = models.ForeignKey(User)
     
@@ -31,3 +36,4 @@ class UserInterest(models.Model):
     interest=models.ForeignKey(Interest, on_delete=models.CASCADE)
 
     priority=models.IntegerField()
+    subinterests=models.ManyToManyField(Subinterest)

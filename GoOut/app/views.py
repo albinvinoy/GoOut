@@ -7,12 +7,13 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login as login_view
+from django.forms import formset_factory
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm, LocationForm
-from app.models import Interest, UserInfo, UserInterest
-from app.utilities import getUserInfo, getUserInterestsAsIdList, getSuggestedInterestsAsListOfTuples
+from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm, LocationForm, SubinterestSelectionForm
+from app.models import Interest, UserInfo, UserInterest, Subinterest
+from app.utilities import getUserInfo, getUserInterestsAsIdList, getInterestsAndSubInterests
 from app.maps import getLocationFromString
 
 @login_required
@@ -39,7 +40,8 @@ def home(request):
 def profile(request):
     """Renders the profile page."""
     assert isinstance(request, HttpRequest)
-    form = ProfileForm(request.POST or None, suggestedInterests=getSuggestedInterestsAsListOfTuples(request.user))
+    interests = getInterestsAndSubInterests(request.user)
+    form = ProfileForm(request.POST or None, suggestedInterests=interests)
     photoform = ProfilePicForm()
     userInfo=getUserInfo(request.user)
     photoUrl = userInfo.profilepic.url if bool(userInfo.profilepic) else ''
@@ -47,23 +49,28 @@ def profile(request):
         firstname=form.cleaned_data['firstname']
         lastname=form.cleaned_data['lastname']
         bio=form.cleaned_data['bio']
-        interests=form.cleaned_data['interests']
         request.user.first_name=firstname
         request.user.last_name=lastname
         request.user.save()
-        UserInterest.objects.filter(user=userInfo).delete()
-        for interestID in interests:
-            interestModel=Interest.objects.get(id=interestID)
-            userInterest=UserInterest(user=userInfo, interest=interestModel, priority=1)
-            userInterest.save()
         userInfo.bio=bio
         userInfo.save()
-    form = ProfileForm(suggestedInterests=getSuggestedInterestsAsListOfTuples(request.user),
+        subinterestIDs=form.cleaned_data['interests']
+        subinterests=list(map(lambda subinterestID:Subinterest.objects.get(id=subinterestID), subinterestIDs))
+        uniqueInterests = {subinterest.interest for subinterest in subinterests}
+        UserInterest.objects.filter(user=userInfo).delete()
+        for interest in uniqueInterests:
+            userInterest=UserInterest(user=userInfo, interest=interest, priority=1)
+            userInterest.save()
+            userSubInterests =[subinterest for subinterest in subinterests if subinterest.interest == interest]
+            userInterest.subinterests=userSubInterests
+            userInterest.save()
+    userInterests = getUserInterestsAsIdList(request.user)
+    form = ProfileForm(suggestedInterests=interests,
     initial={
         'firstname':request.user.first_name, 
         'lastname':request.user.last_name,
         'bio':userInfo.bio,
-        'interests':getUserInterestsAsIdList(request.user)
+        'interests':userInterests
     })
     return render(request,
         'app/profile.html',
@@ -72,7 +79,6 @@ def profile(request):
             'form':form,
             'photoform':photoform,
             'photoUrl':photoUrl,
-            'year':datetime.now().year,
         })
 
 def user_login(request):
