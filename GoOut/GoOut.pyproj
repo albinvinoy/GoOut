@@ -31,6 +31,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="appengine_config.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\apis\movies.py">
       <SubType>Code</SubType>
     </Compile>

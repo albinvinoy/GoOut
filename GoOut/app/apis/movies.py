@@ -1,4 +1,4 @@
-import tmdbsimple as tmdb
+import lib.tmdbsimple as tmdb
 from django.conf import settings
 from enum import Enum
 

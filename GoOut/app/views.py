@@ -22,16 +22,16 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     form = LocationForm(request.POST or None)
-    newsfeed = []
+    userInfo = UserInfo.objects.get(user=request.user)
+    newsfeed = Newsfeed(userInfo)
     if(request.method=='POST' and form.is_valid()):
         location = getLocationFromString(form.cleaned_data['location'])
         request.session['location'] = location
         form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+        newsfeed.nextPage()
     elif ('location' in request.session):
         location = request.session['location']
         form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
-        userInfo = UserInfo.objects.get(user=request.user)
-        newsfeed = Newsfeed(userInfo)
         newsfeed.nextPage()
     return render(request,
         'app/index.html',
