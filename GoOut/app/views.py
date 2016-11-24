@@ -22,7 +22,7 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     form = LocationForm(request.POST or None)
-    userInfo = UserInfo.objects.get(user=request.user)
+    userInfo = getUserInfo(user=request.user)
     newsfeed = Newsfeed(userInfo)
     if(request.method=='POST' and form.is_valid()):
         location = getLocationFromString(form.cleaned_data['location'])
