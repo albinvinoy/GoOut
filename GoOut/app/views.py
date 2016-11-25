@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm, LocationForm, SubinterestSelectionForm
 from app.models import Interest, UserInfo, UserInterest, Subinterest
-from app.utilities import getUserInfo, getUserInterestsAsIdList, getInterestsAndSubInterests
+from app.utilities import getUserInfo, getUserInterestsAsIdList, getInterestsAndSubInterests, getSuggestedInterestsAsListOfTuples
 from app.maps import getLocationFromString
 from app.newsfeed import Newsfeed
 
