@@ -12,6 +12,10 @@ class Genre(Enum):
 class MovieInfo:
     tmdb.API_KEY = settings.MOVIE_API_KEY
 
+    def __init__(self):
+        self.movies = tmdb.Movies()
+        self.now_playing = self.movies.now_playing()
+
     def GetGenreFromGenreName(self, genreName):
         if (genreName == 'Action'):
             return Genre.action
@@ -28,3 +32,7 @@ class MovieInfo:
         tmdb_genre = tmdb.Genres(genre.value)
         movies_in_genre = tmdb_genre.movies(page=10)
         return movies_in_genre['results']
+
+    def GetNowPlayingInGenre(self, genre):
+        movies_in_genre = [movie for movie in self.now_playing['results'] if genre.value in movie['genre_ids']]
+        return movies_in_genre

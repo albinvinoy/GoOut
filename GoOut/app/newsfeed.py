@@ -24,7 +24,7 @@ class Newsfeed:
                 # Call movie API
                 movies = MovieInfo()
                 genre = movies.GetGenreFromGenreName(subinterest.name)
-                genre_movies = movies.GetPopularMoviesInGenre(genre)
+                genre_movies = movies.GetNowPlayingInGenre(genre)
                 if (len(genre_movies) < subinterestCount):
                     subinterestCount = len(genre_movies)
                 selected_movies = random.sample(genre_movies, subinterestCount)
@@ -37,11 +37,11 @@ class Newsfeed:
                 }), selected_movies)))
             elif (interest.id == 2):
                 # Call music API
-                self.articles.extend([])
+                self.articles.extend([{'interest':interest.name}] * subinterestCount)
             elif (interest.id == 3):
                 # Call beer API
-                self.articles.extend([])
+                self.articles.extend([{'interest':interest.name}] * subinterestCount)
             elif (interest.id == 4):
                 # Call car API
-                self.articles.extend([])
+                self.articles.extend([{'interest':interest.name}] * subinterestCount)
         return self.articles

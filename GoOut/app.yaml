@@ -7,3 +7,11 @@ runtime_config:
   python_version: 3
 # [END runtime]
 
+handlers:
+- url: /
+  script: home.app
+  secure: always
+
+- url: /login/*
+  script: login.app
+  secure: always
