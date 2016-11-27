@@ -26,13 +26,19 @@ def home(request):
     newsfeed = Newsfeed(userInfo)
     if(request.method=='POST' and form.is_valid()):
         location = getLocationFromString(form.cleaned_data['location'])
-        request.session['location'] = location
-        form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
-        newsfeed.nextPage()
+        try:
+            form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+            request.session['location'] = location
+            newsfeed.nextPage()
+        except KeyError:
+            form.fields['location'].initial = ''
     elif ('location' in request.session):
-        location = request.session['location']
-        form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
-        newsfeed.nextPage()
+        try:
+            form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+            location = request.session['location']
+            newsfeed.nextPage()
+        except KeyError:
+            form.fields['location'].initial = ''
     return render(request,
         'app/index.html',
         {
