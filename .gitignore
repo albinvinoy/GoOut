@@ -31,3 +31,4 @@
 /GoOut/.vs/config
 *.gitignore~
 *.py~
+/GoOut/lib

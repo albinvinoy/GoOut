@@ -67,7 +67,7 @@ function initMap() {
             navigator.geolocation.getCurrentPosition(showPosition, showPositionError);
         });
 
-        map.addListener('idle', performSearch());
+        map.addListener('idle', function () { performSearch(); });
     }
 }
 

@@ -90,3 +90,13 @@ input[type="checkbox"].input-validation-error {
 .padding-right{
     padding-right:5px;
 }
+
+/* Styles for articles */
+.article {
+    border: 1px solid #000;
+    margin:10px 0;
+    padding:10px;
+}
+.article-interest-movies {
+    background: #fefefe;
+}

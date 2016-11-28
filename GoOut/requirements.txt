@@ -10,3 +10,4 @@ djangorestframework==3.4.7
 Pillow==3.4.1
 googlemaps==2.4.4
 requests==2.10.0
+google-api-python-client

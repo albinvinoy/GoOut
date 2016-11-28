@@ -1,9 +1,17 @@
 # [START runtime]
 runtime: python
-vm: true
+env: flex
 entrypoint: gunicorn -b :$PORT GoOut.wsgi
 
 runtime_config:
   python_version: 3
 # [END runtime]
 
+handlers:
+- url: /
+  script: home.app
+  secure: always
+
+- url: /login/*
+  script: login.app
+  secure: always

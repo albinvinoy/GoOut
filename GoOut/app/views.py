@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from app.forms import BootstrapAuthenticationForm, ProfileForm, RegistrationForm, ProfilePicForm, LocationForm, SubinterestSelectionForm
 from app.models import Interest, UserInfo, UserInterest, Subinterest
-from app.utilities import getUserInfo, getUserInterestsAsIdList, getInterestsAndSubInterests
+from app.utilities import getUserInfo, getUserInterestsAsIdList, getInterestsAndSubInterests, getSuggestedInterestsAsListOfTuples
 from app.maps import getLocationFromString
 from app.newsfeed import Newsfeed
 
@@ -22,17 +22,23 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     form = LocationForm(request.POST or None)
-    newsfeed = []
+    userInfo = getUserInfo(user=request.user)
+    newsfeed = Newsfeed(userInfo)
     if(request.method=='POST' and form.is_valid()):
         location = getLocationFromString(form.cleaned_data['location'])
-        request.session['location'] = location
-        form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+        try:
+            form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+            request.session['location'] = location
+            newsfeed.nextPage()
+        except KeyError:
+            form.fields['location'].initial = ''
     elif ('location' in request.session):
-        location = request.session['location']
-        form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
-        userInfo = UserInfo.objects.get(user=request.user)
-        newsfeed = Newsfeed(userInfo)
-        newsfeed.nextPage()
+        try:
+            form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
+            location = request.session['location']
+            newsfeed.nextPage()
+        except KeyError:
+            form.fields['location'].initial = ''
     return render(request,
         'app/index.html',
         {
