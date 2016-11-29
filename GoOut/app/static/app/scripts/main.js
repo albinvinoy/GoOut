@@ -125,4 +125,7 @@ $(function () {
             return '<h3>Set Location</h3>';
         }
     }).click(initMap);
+    $('#id_photo').change(function () {
+        $('#profilePhotoForm  form').submit();
+    });
 });

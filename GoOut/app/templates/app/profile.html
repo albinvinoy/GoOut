@@ -13,12 +13,17 @@
             {% csrf_token %}
             <h3>Update Pic</h3>
             <hr />
-            {% if photoUrl|length == 0 %}
-            <img id="imgProfilePhoto" class="profile-pic" src="{% static 'app/images/profile-pic-placeholder.gif' %}" />
-            {% else %}
-            <img id="imgProfilePhoto" class="profile-pic" src="{{ photoUrl }}" />
-            {% endif %}
-            {{ photoform.photo }}
+            <div class="profile-pic-container">
+                {% if photoUrl|length == 0 %}
+                <img id="imgProfilePhoto" class="profile-pic" src="{% static 'app/images/profile-pic-placeholder.gif' %}" />
+                {% else %}
+                <img id="imgProfilePhoto" class="profile-pic" src="{{ photoUrl }}" />
+                {% endif %}
+                {{ photoform.photo }}
+                <div class="profile-pic-overlay">
+                    <label for="id_photo" class="profile-pic-upload">Choose a photo</label>
+                </div>
+            </div>
             <input type="hidden" name="next" value="/" />
             <input type="submit" value="Save" class="btn btn-default" />
         </form>
