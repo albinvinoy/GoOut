@@ -68,7 +68,9 @@ class ProfileForm(forms.Form):
                             }))
 
 class ProfilePicForm(forms.Form):
-    photo = forms.ImageField()
+    photo = forms.ImageField(widget=forms.ClearableFileInput({
+                                'accept':'image/*'
+                            }))
 
 class SubinterestSelectionForm(forms.Form):
     def __init__(self, *args, **kwargs):

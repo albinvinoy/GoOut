@@ -13,12 +13,17 @@
             {% csrf_token %}
             <h3>Update Pic</h3>
             <hr />
-            {% if photoUrl|length == 0 %}
-            <img id="imgProfilePhoto" class="profile-pic" src="{% static 'app/images/profile-pic-placeholder.gif' %}" />
-            {% else %}
-            <img id="imgProfilePhoto" class="profile-pic" src="{{ photoUrl }}" />
-            {% endif %}
-            {{ photoform.photo }}
+            <div class="profile-pic-container">
+                {% if photoUrl|length == 0 %}
+                <img id="imgProfilePhoto" class="profile-pic" src="{% static 'app/images/profile-pic-placeholder.gif' %}" />
+                {% else %}
+                <img id="imgProfilePhoto" class="profile-pic" src="{{ photoUrl }}" />
+                {% endif %}
+                {{ photoform.photo }}
+                <div class="profile-pic-overlay">
+                    <label for="id_photo" class="profile-pic-upload">Choose a photo</label>
+                </div>
+            </div>
             <input type="hidden" name="next" value="/" />
             <input type="submit" value="Save" class="btn btn-default" />
         </form>
@@ -50,8 +55,31 @@
             </div>
             <div class="form-group">
                 <label for="interests" class="col-md-3 control-label">Interests</label>
-                <div class="col-md-9">
-                    {{ form.interests }}
+                <div class="col-md-9 panel-group" id="interest-accordion"role="tablist" aria-multiselectable="true">
+                    {% for interest, subinterests in form.fields.interests.widget.choices %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="interest-heading-{{ forloop.counter }}">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#interest-accordion" 
+                                   href="#interest-collapse-{{ forloop.counter }}" aria-expanded="true" 
+                                   aria-controls="interest-collapse-{{ forloop.counter }}">{{ interest }}</a>
+                            </h4>
+                        </div>
+                        <div id="interest-collapse-{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="interest-heading-{{ forloop.counter }}">
+                            <div class="panel-body">
+                                <ul class="subinterest-list">
+                                {% for subinterest in subinterests %}
+                                    <li>
+                                        <input type="checkbox" name="interests" id="id_interests_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" 
+                                               value="{{ subinterest.0 }}" {% if subinterest.0 in form.initial.interests %}checked="checked"{% endif %} />
+                                        <label for="id_interests_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">{{ subinterest.1 }}</label>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="form-group">

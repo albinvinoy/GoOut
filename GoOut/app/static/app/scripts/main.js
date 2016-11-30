@@ -73,7 +73,7 @@ function initMap() {
 
 function performSearch() {
     var request = {
-        location: map.location,
+        location: map.center,
         radius: 24000,
         keyword: 'bar'
     };
@@ -93,7 +93,7 @@ function callback(results, status) {
 
 function addMarker(place) {
     var marker = new google.maps.Marker({
-        map: map,
+        map: window.map,
         position: place.geometry.location,
         icon: {
             url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
@@ -125,4 +125,7 @@ $(function () {
             return '<h3>Set Location</h3>';
         }
     }).click(initMap);
+    $('#id_photo').change(function () {
+        $('#profilePhotoForm  form').submit();
+    });
 });

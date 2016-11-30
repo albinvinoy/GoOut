@@ -34,8 +34,8 @@ def home(request):
             form.fields['location'].initial = ''
     elif ('location' in request.session):
         try:
-            form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
             location = request.session['location']
+            form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
             newsfeed.nextPage()
         except KeyError:
             form.fields['location'].initial = ''
