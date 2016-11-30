@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>GoOut</Name>
     <RootNamespace>GoOut</RootNamespace>
-    <InterpreterId>{2e7f7e23-627d-49c3-b0ce-6ff3b43cfad7}</InterpreterId>
+    <InterpreterId>{84df59c8-6df2-48cf-9709-9cb0e9cfc7fc}</InterpreterId>
     <InterpreterVersion>3.4</InterpreterVersion>
     <IsWindowsApplication>False</IsWindowsApplication>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
@@ -142,6 +142,17 @@
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
   </ItemGroup>
   <ItemGroup>
+    <Interpreter Include="..\..\..\OneDrive\Documents\GitHub\GoOut\GoOut\env\">
+      <Id>{84df59c8-6df2-48cf-9709-9cb0e9cfc7fc}</Id>
+      <BaseInterpreter>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</BaseInterpreter>
+      <Version>3.4</Version>
+      <Description>env (Python 3.4)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X86</Architecture>
+    </Interpreter>
     <Interpreter Include="env\">
       <Id>{2e7f7e23-627d-49c3-b0ce-6ff3b43cfad7}</Id>
       <BaseInterpreter>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</BaseInterpreter>
