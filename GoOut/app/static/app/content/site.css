@@ -43,6 +43,9 @@ input[type="checkbox"].input-validation-error {
     position:relative;
     width:100%;
 }
+    .profile-pic-container:hover {
+        outline: 1px solid rgba(0,0,0,0.5);
+    }
     .profile-pic-container:hover .profile-pic-overlay {
         display:block;
         visibility: visible;
@@ -78,8 +81,9 @@ input[type="checkbox"].input-validation-error {
     max-width:40px;
 }
 
-.navbar-icon {
-    padding:5px 5px;
+/* Styles for profile interests */
+.subinterest-list {
+    list-style-type:none;
 }
 
 /* Style for map elements */
@@ -92,6 +96,10 @@ input[type="checkbox"].input-validation-error {
 }
 
 /* Style for navbar elements*/
+.navbar-icon {
+    padding:5px 5px;
+}
+
 .navbar-location {
     color:#fff;
     font-size:20px;
