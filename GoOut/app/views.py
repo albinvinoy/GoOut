@@ -23,20 +23,20 @@ def home(request):
     assert isinstance(request, HttpRequest)
     form = LocationForm(request.POST or None)
     userInfo = getUserInfo(user=request.user)
-    newsfeed = Newsfeed(userInfo)
+    newsfeed = Newsfeed(userInfo, pageSize=5)
     if(request.method=='POST' and form.is_valid()):
         location = getLocationFromString(form.cleaned_data['location'])
         try:
             form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
             request.session['location'] = location
-            newsfeed.nextPage()
+            newsfeed.nextPage(lat=location['lat'], lng=location['lng'])
         except KeyError:
             form.fields['location'].initial = ''
     elif ('location' in request.session):
         try:
             location = request.session['location']
             form.fields['location'].initial = '{0}, {1}, {2}'.format(location['city'], location['state'], location['country'])
-            newsfeed.nextPage()
+            newsfeed.nextPage(lat=location['lat'], lng=location['lng'])
         except KeyError:
             form.fields['location'].initial = ''
     return render(request,

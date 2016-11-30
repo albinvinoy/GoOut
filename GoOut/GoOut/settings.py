@@ -170,6 +170,7 @@ GS_MAPS_KEY = config['google']['MAPS_API_KEY']
 GS_SERVER_KEY = config['google']['SERVER_KEY']
 
 MOVIE_API_KEY = config['interest_apis']['MOVIES_KEY']
+TMSAPI_KEY = config['interest_apis']['TMSAPI_KEY']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
 STATICFILES_STORAGE = 'storages.backends.gs.GSBotoStorage'

@@ -1,4 +1,10 @@
-<div class="article article-interest-movies article-subinterest-{{ article.subinterest.name }}">
+{% load jsonify %}
+<div class="article article-interest-movies article-subinterest-{{ article.subinterest_id }}">
     <h3>{{ article.title }}</h3>
+    <h4 class="movie-genre">({{ article.subinterest_name }})</h4>
     <p>{{ article.overview }}</p>
+    <button class="btn btn-info btn-showtimes">Showtimes</button>
+    <script type="application/json">
+        {{ article|jsonify }}
+    </script>
 </div>

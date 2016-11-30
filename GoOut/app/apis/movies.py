@@ -1,6 +1,10 @@
 import tmdbsimple as tmdb
 from django.conf import settings
 from enum import Enum
+from urllib.parse import urlencode
+from urllib.request import urlopen
+import json
+import time
 
 class Genre(Enum):
     animation = 16
@@ -12,9 +16,13 @@ class Genre(Enum):
 class MovieInfo:
     tmdb.API_KEY = settings.MOVIE_API_KEY
 
-    def __init__(self):
-        self.movies = tmdb.Movies()
-        self.now_playing = self.movies.now_playing()
+    def __init__(self, lat, lng):
+        self.tmsapi_uri = 'https://data.tmsapi.com/v1.1/'
+        #self.movies = tmdb.Movies()
+        #self.now_playing = self.movies.now_playing()
+        self.lat=lat
+        self.lng=lng
+        self.showing_nearby = self.GetShowingNearby()
 
     def GetGenreFromGenreName(self, genreName):
         if (genreName == 'Action'):
@@ -36,3 +44,24 @@ class MovieInfo:
     def GetNowPlayingInGenre(self, genre):
         movies_in_genre = [movie for movie in self.now_playing['results'] if genre.value in movie['genre_ids']]
         return movies_in_genre
+
+    def GetShowingNearby(self):
+        search_parameters={
+            'startDate':time.strftime('%Y-%m-%d'),
+            'lat':self.lat,
+            'lng':self.lng,
+            'api_key':settings.TMSAPI_KEY
+        }
+
+        response = urlopen('{}movies/showings?{}'.format(self.tmsapi_uri,urlencode(search_parameters)))
+        data=response.read()
+        movie_showings=json.loads(data.decode('utf-8'))
+        return movie_showings
+
+    def GetNearbyTheatres(self, showing_nearby):
+        theatre_names=set()
+        theatres=[]
+        for movie in showing_nearby:
+            for theatre in movie['showtimes']:
+                theatre_names.update(theatre['name'])
+        self.theatres=theatre_names

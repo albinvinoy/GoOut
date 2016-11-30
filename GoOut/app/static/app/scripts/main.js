@@ -67,7 +67,7 @@ function initMap() {
             navigator.geolocation.getCurrentPosition(showPosition, showPositionError);
         });
 
-        map.addListener('idle', function () { performSearch(); });
+        //map.addListener('idle', function () { performSearch(); });
     }
 }
 
@@ -107,7 +107,7 @@ function addMarker(place) {
         },
     });
 
-    addInfoWindow(marker, place.name);
+    //addInfoWindow(marker, place.name);
 }
 
 function addInfoWindow(marker, message) {
@@ -137,4 +137,77 @@ $(function () {
     $('#id_photo').change(function () {
         $('#profilePhotoForm  form').submit();
     });
+
+    $('.btn-showtimes').click(function () {
+        var $moreInfo = $('#moreInfo');
+        var $article = $(this).closest('.article');
+        // Load article info
+        var articleInfo = $.parseJSON($article.find('script').text());
+        $moreInfo.find('.modal-title').text('Theatres playing ' + articleInfo['title']);
+        // Show modal
+        $moreInfo.modal('show');
+        $moreInfo.one('shown.bs.modal', function () {
+            if (typeof window.articleInfoMap !== 'undefined') {
+                // If initialized, remove markers
+                window.articleInfoMap.markers.forEach(function (marker) {
+                    marker.setMap(null);
+                    marker = null;
+                });
+            }
+            else {
+                // If not initialized, initialize articleInfoMap
+                var mapEl = document.getElementById('infoMap');
+                var center = { lat: 33.883, lng: -117.887 };
+                if (typeof curr_loc !== 'undefined') {
+                    center['lat'] = curr_loc['lat'];
+                    center['lng'] = curr_loc['lng'];
+                }
+                window.articleInfoMap = new google.maps.Map(mapEl, {
+                    zoom: 10,
+                    center: center
+                });
+                window.articleInfoMap.markers = [];
+            }
+            // Attach markers, marker info
+            var theatres = new Set();
+            articleInfo.showtimes.forEach(function (showtime) {
+                theatres.add(showtime.theatre.name);
+            });
+            window.infowindow = new google.maps.InfoWindow();
+            window.placeService = new google.maps.places.PlacesService(window.articleInfoMap);
+            for (let theatre of theatres) {
+                var name = theatre;
+                window.placeService.radarSearch({
+                    location: window.articleInfoMap.center,
+                    radius: 50000,
+                    name: name
+                }, theatreSearchCallback);
+            }
+        });
+    });
 });
+
+function theatreSearchCallback(results, status) {
+    if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        return;
+    }
+    for (var i = 0, result; result = results[i]; i++) {
+        var request = {
+            placeId:result.place_id
+        };
+        window.placeService.getDetails(request, function (place, status) {
+            var marker = new google.maps.Marker({
+                map: window.articleInfoMap,
+                position: place.geometry.location,
+                clickable: true,
+                place: {
+                    placeId: place.place_id,
+                    location: place.geometry.location
+                },
+            });
+            window.articleInfoMap.markers.push(marker);
+            window.infowindow.setContent('<div><strong>' + place.name + '</strong>');
+            window.infowindow.open(window.articleInfoMap, marker);
+        });
+    }
+}

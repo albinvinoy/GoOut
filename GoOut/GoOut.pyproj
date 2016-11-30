@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>GoOut</Name>
     <RootNamespace>GoOut</RootNamespace>
-    <InterpreterId>{84df59c8-6df2-48cf-9709-9cb0e9cfc7fc}</InterpreterId>
+    <InterpreterId>{2e7f7e23-627d-49c3-b0ce-6ff3b43cfad7}</InterpreterId>
     <InterpreterVersion>3.4</InterpreterVersion>
     <IsWindowsApplication>False</IsWindowsApplication>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
@@ -49,6 +49,9 @@
     </Compile>
     <Compile Include="app\models.py" />
     <Compile Include="app\newsfeed.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\templatetags\jsonify.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\templatetags\userinfo.py">

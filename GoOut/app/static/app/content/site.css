@@ -95,6 +95,11 @@ input[type="checkbox"].input-validation-error {
     height:170px;
 }
 
+#infoMap {
+    height:400px;
+    width:100%;
+}
+
 /* Style for navbar elements*/
 .navbar-icon {
     padding:5px 5px;
@@ -142,6 +147,15 @@ input[type="file"] {
     margin:10px 0;
     padding:10px;
 }
+.article-interest-beer {
+    background:#ffd800;
+}
+.article-interest-car {
+    background:#ddd;
+}
 .article-interest-movies {
     background: #fefefe;
+}
+.article-interest-music{
+    background:#d3e8a0;
 }
