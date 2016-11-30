@@ -75,7 +75,7 @@ function performSearch() {
     var request = {
         location: map.center,
         radius: 24000,
-        keyword: 'bar'
+        keyword: ['bar', 'theater', 'brewery', 'winery', 'concert', 'park']
     };
 
     service.radarSearch(request, callback);
@@ -95,22 +95,31 @@ function addMarker(place) {
     var marker = new google.maps.Marker({
         map: window.map,
         position: place.geometry.location,
+        clickable: true,
+        place: {
+            placeId: place.place_id,
+            location: place.geometry.location
+        },
         icon: {
             url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
             anchor: new google.maps.Point(10, 10),
             scaledSize: new google.maps.Size(10, 17)
-        }
+        },
     });
 
-    google.maps.event.addListener(marker, 'click', function () {
-        service.getDetails(place, function (result, status) {
-            if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                console.error(status);
-                return;
-            }
-            infoWindow.setContent(result.name);
-            infoWindow.open(map, marker);
-        });
+    addInfoWindow(marker, place.name);
+}
+
+function addInfoWindow(marker, message) {
+
+    var infoWindow = new google.maps.InfoWindow({
+        map: marker.map,
+        content: message,
+        position: marker.location
+    });
+
+    marker.addListener(marker, 'click', function () {
+        infoWindow.open(map, marker);
     });
 }
 
