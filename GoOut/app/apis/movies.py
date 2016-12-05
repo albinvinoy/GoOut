@@ -1,4 +1,3 @@
-import tmdbsimple as tmdb
 from django.conf import settings
 from enum import Enum
 from urllib.parse import urlencode
@@ -14,7 +13,7 @@ class Genre(Enum):
     other = -1
 
 class MovieInfo:
-    tmdb.API_KEY = settings.MOVIE_API_KEY
+    #tmdb.API_KEY = settings.MOVIE_API_KEY
 
     def __init__(self, lat, lng):
         self.tmsapi_uri = 'https://data.tmsapi.com/v1.1/'
@@ -36,10 +35,10 @@ class MovieInfo:
         else:
             return Genre.other
 
-    def GetPopularMoviesInGenre(self, genre):
-        tmdb_genre = tmdb.Genres(genre.value)
-        movies_in_genre = tmdb_genre.movies(page=10)
-        return movies_in_genre['results']
+    #def GetPopularMoviesInGenre(self, genre):
+        #tmdb_genre = tmdb.Genres(genre.value)
+        #movies_in_genre = tmdb_genre.movies(page=10)
+        #return movies_in_genre['results']
 
     def GetNowPlayingInGenre(self, genre):
         movies_in_genre = [movie for movie in self.now_playing['results'] if genre.value in movie['genre_ids']]
